@@ -10,9 +10,11 @@ spec:
       - appName: vm1
         gitPath: dev
         namespace: ns-vm
+        dataVolumeName: dev-datavolume
       - appName: vm2
         gitPath: prod
         namespace: ns-vm
+        dataVolumeName: prod-datavolume
   template:
     metadata:
       name: "{{appName}}"

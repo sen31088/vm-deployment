@@ -37,7 +37,7 @@ spec:
       volumes:
         - name: rootdisk
           dataVolume:
-            name: my-rhel9-datavolume
+            name: datavolume
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |

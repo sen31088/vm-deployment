@@ -1,0 +1,66 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: vm
+  namespace: ns-vm # Change to your namespace
+  labels:
+    vm.kubevirt.io/template: rhel9-server-small # Change template name as needed
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: vm
+    spec:
+      domain:
+        cpu:
+          cores: 1
+        memory:
+          guest: 2Gi # Define memory for the VM
+        resources:
+          requests:
+            memory: 2Gi
+        devices:
+          disks:
+            - name: rootdisk
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+            - name: default
+              masquerade: {}
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - name: rootdisk
+          dataVolume:
+            name: my-rhel9-datavolume
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              user: cloud-user
+              password: password123
+              chpasswd: { expire: False }
+              ssh_authorized_keys:
+              - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjjLJEGCNC6hnN2S8CqXhvPO0EGkYjOaItiLKHqpBwUUvISoKBWDQmoZyRDQkcRePmPEMUzIcxKuCQUx1EzFR0Vl5EHYrm3LlRKJJaOcNW0DpE+yQnIs1LX/fh9JfZKQ9kEPailBl9M2Xq3fe/BJozg4RJT5eVxTC0d0S4TBXA65+tz8rn2gfPow0IViaFL7wYqvAPO430g/akS4nnEAzW+vqeQQQCxtWBTa93r09W4wJEiE0NSUJlVGO5ndyhzlSNR0e/Iq5jsqfNu/uDOVP2mmoiAYBCukmX/bMnNeo4d0/UFoPWLsRNgg/zBymKuu7n6SY7l3TLFn9KFIAqCXQzi7wqovgrkQ0MhbSzP5O1BuLgxsGgAn4PLP0e0PloVg97eCe9frGrJ0I6DY5okSoslOH8wWv/PtfroOkMLjul8ZErbCf5khKuliOvKLrXC+7fSylnYLbrasPztAYgJRhB01WwHNtZNECqV/o+eZPpixiQI1sq1SqGJP9MtMD0vRc=
+
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: datavolume
+  namespace: ns-vm
+spec:
+  source:
+    pvc:
+      name: rhel9-0c9204ba64c2 # Existing PVC with bootable OS image
+      namespace: openshift-virtualization-os-images
+  storage:
+    resources:
+      requests:
+        storage: 30Gi
+    storageClassName: csi-rbd-sc # Use your storage class

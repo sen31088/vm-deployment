@@ -19,7 +19,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/aws-samples/osa-virtualization-pipelines-sample.git
+        repoURL: https://github.com/sen31088/vm-deployment.git
         targetRevision: HEAD
         path: "applicationsets/vm/kustomize/{{gitPath}}"
       destination:

@@ -22,6 +22,9 @@ spec:
           - appName: db
             gitPath: db
             namespace: ns-vm
+          - appName: db1
+            gitPath: db1
+            namespace: ns-vm
   template:
     metadata:
       name: "{{appName}}"

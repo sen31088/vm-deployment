@@ -20,5 +20,8 @@ patches:
       - op: replace
         path: /spec/template/spec/volumes/0/dataVolume/name
         value: dv-app1
+      - op: replace
+        path: /spec/dataVolumeTemplates/0/spec/storage/resources/requests/storage
+        value: 40Gi
     target:
       kind: VirtualMachine

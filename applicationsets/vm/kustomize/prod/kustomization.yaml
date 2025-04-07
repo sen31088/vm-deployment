@@ -19,6 +19,9 @@ patches:
           password: fedora123
           chpasswd: { expire: False }
       - op: replace
+        path: /spec/dataVolumeTemplates/0/metadata/name
+        value: dv-prd
+      - op: replace
          path: /spec/template/spec/volumes/0/dataVolume/name
         value: dv-prd
     target:

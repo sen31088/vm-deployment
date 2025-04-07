@@ -6,6 +6,21 @@ metadata:
   labels:
     vm.kubevirt.io/template: rhel9-server-small # Change template name as needed
 spec:
+  dataVolumeTemplates:
+    - apiVersion: cdi.kubevirt.io/v1beta1
+      kind: DataVolume
+      metadata:
+        creationTimestamp: null
+        name: rhel8-test
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: rhel8
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources:
+            requests:
+              storage: 30Gi
   running: true
   template:
     metadata:

@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../base
+
+namePrefix: app1-
+
+patches:
+  - patch: |
+      - op: replace
+        path: /spec/running
+        value: true
+      - op: replace
+        path: /spec/template/spec/domain/memory/guest
+        value: 2Gi
+      - op: replace
+        path: /spec/dataVolumeTemplates/0/metadata/name
+        value: dv-app1
+      - op: replace
+        path: /spec/template/spec/volumes/0/dataVolume/name
+        value: dv-app1
+    target:
+      kind: VirtualMachine

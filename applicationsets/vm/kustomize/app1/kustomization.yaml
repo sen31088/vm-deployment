@@ -13,7 +13,7 @@ patches:
         value: true
       - op: replace
         path: /spec/template/spec/domain/memory/guest
-        value: 2Gi
+        value: 4Gi
       - op: replace
         path: /spec/dataVolumeTemplates/0/metadata/name
         value: dv-app1

@@ -14,7 +14,7 @@ spec:
             gitPath: app
             namespace: ns-vm
           - appName: app1
-            gitPath: app
+            gitPath: app1
             namespace: ns-vm
           - appName: db
             gitPath: db

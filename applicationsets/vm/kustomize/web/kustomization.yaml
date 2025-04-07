@@ -4,7 +4,7 @@ kind: Kustomization
 bases:
   - ../base
 
-namePrefix: dev-
+namePrefix: web-
 
 patches:
   - patch: |
@@ -23,9 +23,9 @@ patches:
           chpasswd: { expire: False }
       - op: replace
         path: /spec/dataVolumeTemplates/0/metadata/name
-        value: dv-dev
+        value: dv-web
       - op: replace
         path: /spec/template/spec/volumes/0/dataVolume/name
-        value: dv-dev
+        value: dv-web
     target:
       kind: VirtualMachine

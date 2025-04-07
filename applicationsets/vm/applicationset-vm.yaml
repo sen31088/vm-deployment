@@ -4,11 +4,18 @@ metadata:
   name: vms
 spec:
   generators:
-    - git:
-        repoURL: https://github.com/sen31088/vm-deployment.git
-        revision: HEAD
-        directories:
-          - path: applicationsets/vm/kustomize/*
+    - clusters: {}
+    - list:
+        elements:
+          - appName: web
+            gitPath: web
+            namespace: ns-vm
+          - appName: app
+            gitPath: app
+            namespace: ns-vm
+          - appName: db
+            gitPath: db
+            namespace: ns-vm
   template:
     metadata:
       name: "{{appName}}"

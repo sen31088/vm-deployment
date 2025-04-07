@@ -18,5 +18,8 @@ patches:
           user: fedora
           password: fedora123
           chpasswd: { expire: False }
+      - op: replace
+        path: /spec/template/spec/volumes/dataVolume/name
+        value: dv-prd
     target:
       kind: VirtualMachine

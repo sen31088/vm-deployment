@@ -1,0 +1,16 @@
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: dv-prd
+  namespace: ns-vm
+spec:
+  source:
+    pvc:
+      name: rhel9-0c9204ba64c2 # Existing PVC with bootable OS image
+      namespace: openshift-virtualization-os-images
+  storage:
+    resources:
+      requests:
+        storage: 30Gi
+    storageClassName: csi-rbd-sc # Use your storage class
